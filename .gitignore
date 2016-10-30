@@ -2,6 +2,7 @@
 *.slo
 *.lo
 *.o
+*.ko
 *.obj
 
 # Precompiled Headers
@@ -27,3 +28,9 @@
 *.exe
 *.out
 *.app
+
+
+*.cmd
+*.symvers
+*.order
+*.mod.c
