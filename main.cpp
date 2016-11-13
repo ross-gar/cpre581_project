@@ -52,26 +52,19 @@ void set_event(unsigned int idx, unsigned int event)
 
 int main ()
 {
-
-	unsigned int x = 0;
+	unsigned int x0 = 0, x1 = 0;
 	init_counters();
+	reset_counters();
+	set_event(0, MEM_WRITE);
+	set_event(1, MEM_READ);
+	unsigned int y = 1;
+	unsigned int z = y + 2;
+	y = z + 4;
+	z = y + 2;
+	x0 = read_counter(0);
+	x1 = read_counter(1);
+	std::cout<<std::hex<<"x0: 0x"<< x0<<std::endl;
+	std::cout<<"x1: 0x"<< x1<<std::endl;
 
-	// Write to event type selection register
-	asm volatile("MCR p15, #0, %0, C9, C13, #1 \n\t" : : "r"(0x00000007));
-	asm volatile("MRC p15,  #0, %0, c9, c13, #1 \n\t" : "=r" (x)); 
-	std::cout<<std::hex<<"Event type 1: 0x"<< x<<std::endl;
-	// Write to select counter
-	asm volatile("MCR p15, #0, %0, C9, C12, #5 \n\t" : : "r"(0x00000001));
-	asm volatile("MRC p15,  #0, %0, c9, c13, #1 \n\t" : "=r" (x)); 
-	std::cout<<std::hex<<"Event type 2: 0x"<< x<<std::endl;
-
-	/*	
-	asm volatile("MRC p15,  #0, %0, c9, c12, #0 \n\t" : "=r" (x)); // Performance monitor control register
-	std::cout<<std::hex<<"PMCR Check: 0x"<< x<<std::endl;
-	asm volatile("MRC p15,  #0, %0, c9, c13, #0 \n\t" : "=r" (x));  //Cycle count register
-	std::cout<<std::hex<<"Cycle Count Register: 0x"<< x<<std::endl;
-	asm volatile("MRC p15,  #0, %0, c9, c13, #2 \n\t" : "=r" (x)); 
-	std::cout<<std::hex<<"Mystery Value: 0x"<< x<<std::endl;
-	*/
 	return 0;
 }
