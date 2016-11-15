@@ -52,19 +52,38 @@ void set_event(unsigned int idx, unsigned int event)
 
 int main ()
 {
-	unsigned int x0 = 0, x1 = 0;
+	// Initialize variables
+	unsigned int result = 0;
+	unsigned int array_length = 100;
+	unsigned int data_array [array_length];
+
+	// Setup counters
 	init_counters();
 	reset_counters();
-	set_event(0, MEM_WRITE);
-	set_event(1, MEM_READ);
-	unsigned int y = 1;
-	unsigned int z = y + 2;
-	y = z + 4;
-	z = y + 2;
-	x0 = read_counter(0);
-	x1 = read_counter(1);
-	std::cout<<std::hex<<"x0: 0x"<< x0<<std::endl;
-	std::cout<<"x1: 0x"<< x1<<std::endl;
+	set_event(0, BRANCH_MISPRED);
 
+	// Perform work
+	// Intialize array
+	for (int i = 0;  i <=array_length; i++) {
+		data_array[i] = i + 3;
+	} 
+
+	// Perform some arbitrary operation on the odd elements of the array
+	// Smart way
+	/*for (int i = 1;  i <=array_length; i = i + 2) {
+		data_array[i] = i + 3;
+	}*/
+
+	// Kind of dumb way
+	/*for (int i = 0;  i <=array_length; i++) {
+		// Check for odd	
+		if (i % 2 == 1) {
+			data_array[i] = i + 3;
+		}
+	} */
+
+	// Read counter result
+	result = read_counter(0);
+	std::cout<<std::dec<<"Branch mispredictions: "<<result<<std::endl;
 	return 0;
 }
