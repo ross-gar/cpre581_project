@@ -8,12 +8,14 @@ CRn and CRm are coprocessor registers
 */
 
 // Define event codes for the ARM A7 architecture
-#define MEM_READ			0x06
-#define MEM_WRITE			0x07
-#define IMM_BRANCH		0x0D
-#define BRANCH_MISPRED	0x10
-#define L2_ACCESS			0x16
-#define L2_REFILL			0x17
+#define MEM_READ			0x06 // Counts number of data read instructions accepted by the Load Store Unit
+#define MEM_WRITE			0x07 // Counts number of data write instructions accepted by the Load Store Unit
+#define IMM_BRANCH		0x0D // Immediate branch architecturally executed (taken or not taken). 
+#define BRANCH_MISPRED	0x10 // Branch mispredicted/not predicted. Counts the number of mispredicted or not-predicted branches executed. 
+#define CYCLE_COUNTER		0x11
+#define DATA_CACHE_EVICT	0x15 // Data cache eviction
+#define L2_ACCESS			0x16 // Level 2 data cache access
+#define L2_REFILL			0x17 // Level 2 data cache refill
 
 void init_counters ()
 {
