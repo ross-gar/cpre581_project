@@ -7,9 +7,9 @@ int main ()
 	// Initialize variables
 	unsigned int l2_refill = 0, l2_access = 0, cycle_count = 0, temp = 0;
 	unsigned int l2_refill_sum = 0, l2_access_sum = 0, cycle_count_sum = 0;
-	unsigned int block_size = 2;
+	unsigned int block_size = 16;
 	unsigned int num_runs = 25;
-	unsigned int matrix_dim = 128;
+	unsigned int matrix_dim = 32;
 	unsigned int matrix_a [matrix_dim][matrix_dim];
 	unsigned int matrix_b [matrix_dim][matrix_dim];
 	unsigned int matrix_c [matrix_dim][matrix_dim];
